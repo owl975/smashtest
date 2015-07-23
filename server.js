@@ -122,8 +122,8 @@ app.post('/login', function (req, res) {
     // saves user id to session
     req.login(user);
 
-    // redirect to user profile
-    res.redirect('/index');
+    // redirect to user main page
+    res.redirect('/');
   });
 });
 
