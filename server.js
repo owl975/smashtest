@@ -355,5 +355,5 @@ app.put('/api/posts/:postid/authors/:authorid', function(req, res){
 
 
 
-app.listen(process.env.PORT || localhost:3000);
+app.listen(process.env.PORT || 3000);
 
