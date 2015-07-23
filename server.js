@@ -135,9 +135,22 @@ app.get('/logout', function (req, res) {
   res.redirect('/login');
 });
 
+app.get('/', function (req, res) {
+  req.currentUser(function (err, user) {
+    // redirect if current user
+    if (user) {
+      res.sendFile(__dirname + '/public/views/index.html');
+    } else {
+      res.sendFile(__dirname + '/public/views/login.html');
+    }
+  });
+});
+
 // ****Signup Ends
 
 // API ROUTES
+
+
 
 
 // get all posts
