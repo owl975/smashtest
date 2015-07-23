@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Ultra' rel='stylesheet' type='text/css'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- bootstrap css -->
+  <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- custom styles -->
+  <link type="text/css" rel="stylesheet" href="styles/posts.css">
+
+  <title>SMASH</title>
+</head>
+<body>
+  
+  <!-- header -->
+  <div class="well">
+    <div class="container">
+      <div class="page-header">
+        <img src="http://www.freeallimages.com/wp-content/uploads/2014/10/bulldog-logo-2.jpg" style="height:228px;">
+        <h1>SMASH </h1>
+        <h2>TAKE ME ON</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- page content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        
+        <!-- new post form-->
+        <form class="form-inline" id="new-post">
+          <div class="newformline1">
+            <input type="text" class="form-control" id="new-text" placeholder="What I did?" autofocus>
+         <!--  </div>
+          <div>   -->  
+            <input type="text" class="form-control" id="new-author" placeholder="Who I am">
+            <input type="text" class="form-control" id="youtube-id" placeholder="Show us. Post Youtube URL" autofocus>
+            <input type="submit" class="btn btn-success" value="Post New Competition">
+          </div>
+        </form>
+        <br>
+
+
+
+        <!-- list of posts  -->
+        <div id="post-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jquery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- underscore -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <!-- custom script -->
+  <script type="text/javascript" src="scripts/posts.js"></script>
+
+  <!-- underscore template for single post -->
+  <script type="text/template" id="post-template" >
+    <div class="post panel panel-default" id="post-<%= _id %>" data-id="<%= _id %>">
+      <div class="panel-body">
+
+        <span class="my-button-group">
+          <!-- delete button -->
+          <button class="close right-side delete-post" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <!-- edit link (pencil icon) to toggle form -->
+          <a class="edit-pencil" role="button" data-toggle="collapse" data-target="#update-<%= _id %>">
+            <span class="glyphicon glyphicon-pencil edit"></span>
+          </a>
+        </span>
+
+
+        <!-- form to update post -->
+        <div class="collapse" id="update-<%= _id %>">
+          <br>
+          <form class="form-inline update-post">          
+            <input type="text" class="form-control updated-text" value="<%= text %>" placeholder="What did you do?">
+            <input type="text" class="form-control updated-author" value="<%= author['name'] %>" placeholder="Who did it?">
+            <input type="text" class="form-control updated-url" value="https://www.youtube.com/embed/<%= youtubeID %>" placeholder="New Youtube URL?">
+            <input type="submit" class="btn btn-default" value="Update">
+          </form>
+        </div>
+
+        <!-- post content -->
+        <p><%= text %></p>
+        <p> - <%= author["name"] %></p>
+
+      <div class="container">
+      <div class="row">
+      <div class="col-sm-12">
+              <div class="embed-responsive embed-responsive-16by9" id="youtube">
+                  <iframe class="embed-responsive-item" src= "https://www.youtube.com/embed/<%= youtubeID %>"></iframe> 
+              </div>
+              <div>
+              <h3>Smash the record!!!</h3>
+              <form class="form-inline" id="new-comment">
+                <div class="newformline1">
+                  <input type="text" class="form-control" id="comment-text" placeholder="What I did?" autofocus>   
+                  <input type="text" class="form-control" id="comment-author" placeholder="Who I am">
+                  <input type="text" class="form-control" id="comment-youtube" placeholder="Show us. Post Youtube URL" autofocus>
+                  <input type="submit" class="btn btn-success" value="Smash the record!">
+                </div>
+              </form>                
+              </div>
+            
+      </div>
+      </div>
+      </div>
+
+        <div class="comment-list" id="comments-<%= _id %>">
+       
+        </div>
+      </div>
+      </div>
+
+  </script>
+   <script type="text/template" id="comment-template">
+    <p class="text-muted">> <%= text %></p>
+  </script>
+
+
+
+  
+</body>
+</html>
