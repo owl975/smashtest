@@ -136,6 +136,12 @@ app.get('/logout', function (req, res) {
 // API ROUTES
 
 
+// get all posts
+app.get('', function (req, res) {
+  // find all posts from the database and
+  // populate all of the post's author information
+  res.sendFile(__dirname + '/public/views/index.html'
+});
 
 // get all posts
 app.get('/api/posts', function (req, res) {
