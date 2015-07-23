@@ -38,13 +38,8 @@ mongoose.connect(
 
 
 
-// get index.html
-app.get('/', function (req, res) {
-  
-  res.sendFile(__dirname + '/public/views/index.html'
-});
 
-  
+
 // middleware to manage sessions
 app.use('/', function (req, res, next) {
   // saves userId in session for logged-in user
@@ -360,5 +355,5 @@ app.put('/api/posts/:postid/authors/:authorid', function(req, res){
 
 
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || localhost:3000);
 
