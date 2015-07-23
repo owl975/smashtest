@@ -121,7 +121,7 @@ app.get('/profile', function (req, res) {
   // finds user currently logged in
   req.currentUser(function (err, user) {
     if (user) {
-      res.send('Welcome ' + user.email);
+      res.sendFile(__dirname + '/public/views/index.html');
     // redirect if there is no current user
     } else {
       res.redirect('/login');
