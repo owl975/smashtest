@@ -128,14 +128,14 @@ app.post('/login', function (req, res) {
 });
 
 // user profile page
-app.get('/profile', function (req, res) {
+app.get('/index', function (req, res) {
   // finds user currently logged in
   req.currentUser(function (err, user) {
     if (user) {
       res.send('Welcome ' + user.email);
     // redirect if there is no current user
     } else {
-      res.redirect('/login');
+      res.redirect('/index');
     }
   });
 });
