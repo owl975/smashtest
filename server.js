@@ -135,7 +135,7 @@ app.get('/', function (req, res) {
       res.send('Welcome ' + user.email);
     // redirect if there is no current user
     } else {
-      res.redirect('/');
+      res.redirect('/login');
     }
   });
 });
