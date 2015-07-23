@@ -31,7 +31,10 @@ var mongoose = require('mongoose');
 var db = require("./models/models");
 
 // connect to db
-mongoose.connect('mongodb://localhost/microblog');
+mongoose.connect(
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/microblog');
 
 // middleware to manage sessions
 app.use('/', function (req, res, next) {
@@ -349,8 +352,5 @@ app.put('/api/posts/:postid/authors/:authorid', function(req, res){
 
 
 
-// set server to localhost:3000
-app.listen(3000, function () {
-  console.log('server started on localhost:3000');
-});
+app.listen(process.env.PORT || 3000);
 
