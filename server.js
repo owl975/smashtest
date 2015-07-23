@@ -68,9 +68,9 @@ app.get('/', function (req, res) {
   req.currentUser(function (err, user) {
     // redirect if current user
     if (user) {
-      res.redirect('/public/views/index.html');
+      res.redirect('/');
     } else {
-      res.sendFile(__dirname + '/public/views/index.html');
+      res.sendFile(__dirname + '/public/views/login');
     }
   });
 });
@@ -128,14 +128,14 @@ app.post('/login', function (req, res) {
 });
 
 // user profile page
-app.get('/index', function (req, res) {
+app.get('/', function (req, res) {
   // finds user currently logged in
   req.currentUser(function (err, user) {
     if (user) {
       res.send('Welcome ' + user.email);
     // redirect if there is no current user
     } else {
-      res.redirect('/index');
+      res.redirect('/');
     }
   });
 });
