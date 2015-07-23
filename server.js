@@ -68,7 +68,7 @@ app.get('/', function (req, res) {
   req.currentUser(function (err, user) {
     // redirect if current user
     if (user) {
-      res.redirect('/profile');
+      res.redirect('/public/views/index.html');
     } else {
       res.sendFile(__dirname + '/public/views/index.html');
     }
