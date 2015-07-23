@@ -137,7 +137,7 @@ app.get('/logout', function (req, res) {
 
 
 // get all posts
-app.get('', function (req, res) {
+app.get('/', function (req, res) {
   // find all posts from the database and
   // populate all of the post's author information
   res.sendFile(__dirname + '/public/views/index.html'
