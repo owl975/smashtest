@@ -123,7 +123,7 @@ app.post('/login', function (req, res) {
     req.login(user);
 
     // redirect to user profile
-    res.redirect('/profile');
+    res.redirect('/index');
   });
 });
 
