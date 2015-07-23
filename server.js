@@ -64,17 +64,6 @@ app.use('/', function (req, res, next) {
   next();
 });
 
-app.get('/', function (req, res) {
-  req.currentUser(function (err, user) {
-    // redirect if current user
-    if (user) {
-      res.redirect('/');
-    } else {
-      res.sendFile(__dirname + '/public/views/login');
-    }
-  });
-});
-
 // signup route (renders signup view)
 app.get('/signup', function (req, res) {
   req.currentUser(function (err, user) {
@@ -122,13 +111,13 @@ app.post('/login', function (req, res) {
     // saves user id to session
     req.login(user);
 
-    // redirect to user main page
-    res.redirect('/');
+    // redirect to user profile
+    res.redirect('/profile');
   });
 });
 
 // user profile page
-app.get('/', function (req, res) {
+app.get('/profile', function (req, res) {
   // finds user currently logged in
   req.currentUser(function (err, user) {
     if (user) {
@@ -366,5 +355,5 @@ app.put('/api/posts/:postid/authors/:authorid', function(req, res){
 
 
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || localhost:3000);
 
