@@ -64,6 +64,17 @@ app.use('/', function (req, res, next) {
   next();
 });
 
+app.get('/', function (req, res) {
+  req.currentUser(function (err, user) {
+    // redirect if current user
+    if (user) {
+      res.redirect('/profile');
+    } else {
+      res.sendFile(__dirname + '/public/views/index.html');
+    }
+  });
+});
+
 // signup route (renders signup view)
 app.get('/signup', function (req, res) {
   req.currentUser(function (err, user) {
