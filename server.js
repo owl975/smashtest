@@ -36,6 +36,15 @@ mongoose.connect(
   process.env.MONGOHQ_URL ||
   'mongodb://localhost/microblog');
 
+
+
+// get index.html
+app.get('/', function (req, res) {
+  
+  res.sendFile(__dirname + '/public/views/index.html'
+});
+
+  
 // middleware to manage sessions
 app.use('/', function (req, res, next) {
   // saves userId in session for logged-in user
@@ -135,13 +144,6 @@ app.get('/logout', function (req, res) {
 
 // API ROUTES
 
-
-// get all posts
-app.get('/', function (req, res) {
-  // find all posts from the database and
-  // populate all of the post's author information
-  res.sendFile(__dirname + '/public/views/index.html'
-});
 
 // get all posts
 app.get('/api/posts', function (req, res) {
