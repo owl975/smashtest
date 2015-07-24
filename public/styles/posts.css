@@ -23,6 +23,14 @@
   width:100%;
 }
 
+#new-author{
+  width:100%;
+}
+#youtube-id{
+  width:100%;
+}
+
+
 .newformline1{
   padding-bottom: 10px;
 }
@@ -39,16 +47,28 @@ h1 {
   padding-top: 50px;
   margin-top: 25px;
   font-family: 'Ultra', serif;
+  font-size: 400%;
 }
 
-}
 h2 {
-    text-align: center;
+  text-align: center;
   margin-bottom: 50px;
+  padding-top: 50px;
+  margin-top: 25px;
 }
 
 .page-header img{
 
   float:left;
+}
+
+.youtube1 {
+width: 100%;
+
+}
+
+.youtube2 {
+
+width: 100%;
 }
 
