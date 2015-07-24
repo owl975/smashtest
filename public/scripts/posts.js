@@ -2,6 +2,53 @@
 
 $(function() {
 
+
+
+
+$.get('/api/me', function(data){
+  console.log(data);
+  if (data === null){
+    $('#reg-buttons').show();
+  } else {
+    $('#logged-in').show();
+  }
+});
+
+$('#log-out').click(function(e){
+  console.log("smash");
+  $.get('/logout', function(data){
+    $('#logged-in').hide();
+    $('#reg-buttons').show();
+  })
+
+})
+
+// {
+//     rules: {
+//       "user[email]": "required",
+//       "user[password]": {
+//         required: true,
+//         minlength: 5
+//       },
+//       verifypassword: {
+//         required: true,
+//         equalTo: '#password'
+//       }
+//     },
+
+//     messages: {
+//       "user[email]": "Email required.",
+//       "user[password]": {
+//         required: "Please enter a password.",
+//         minlength: "Your password must be 5 characters or longer."
+//       },
+//       verifypassword: {
+//         required: "Please verify your password.",
+//         equalTo: "Please make sure your passwords match."
+//       }
+//     }
+//   });
+
   
   var postsController = {
     
@@ -19,7 +66,7 @@ $(function() {
           var $postHtml = $(postsController.template(post));
           $('#post-list').append($postHtml);
           _.each(post.comments, function(comment){
-          commentsController.render(comment, posts._id);
+          commentsController.render(comment, post._id);
         });
         
         });
@@ -85,6 +132,7 @@ $(function() {
           var updatedAuthor = $(this).find('.updated-author').val();
           var updatedText = $(this).find('.updated-text').val();
           var updatedURL = $(this).find('.updated-url').val().split('=')[1];
+          console.log(updatedAuthor, updatedText, updatedURL);
           postsController.update(postId, updatedAuthor, updatedText, updatedURL);
         })
         // for delete: click event on `.delete-post` button
@@ -143,7 +191,8 @@ $(function() {
     // pass each comment object through template and append to view
     render: function(commentObj, postId) {
       var $commentHtml = $(commentsController.template(commentObj));
-      $('.comment-list[data-post-id=' + postId + ']').append($commentHtml);
+      $('#comments-' + postId ).append($commentHtml);
+      console.log($commentHtml);
     },
 
     create: function(postId, newCommentText, newCommentAuthor, newCommentURL) {
@@ -155,12 +204,11 @@ $(function() {
       // send POST request to server to create new comment
       $.post('/api/posts/' + postId + '/comments', commentData, function(data) {
         var newComment = data;
-        console.log(newComment);
+        console.log("comment sent to server");
         commentsController.render(newComment, postId);
       });      
     }
   };
-
 
 
   

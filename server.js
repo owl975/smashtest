@@ -4,11 +4,11 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    _ = require("underscore");
-    session = require('express-session');
+    _ = require("underscore"),
+    session = require('express-session'),
     User = require('./models/user'),
     youtubeURL = require('./models/models');
-    Comment = require('./models/models');
+
 
 app.use(session({
   saveUninitialized: true,
@@ -69,7 +69,7 @@ app.get('/signup', function (req, res) {
   req.currentUser(function (err, user) {
     // redirect if current user
     if (user) {
-      res.redirect('/profile');
+      res.redirect('/');
     } else {
       res.sendFile(__dirname + '/public/views/signup.html');
     }
@@ -84,7 +84,8 @@ app.post('/users', function (req, res) {
 
   // create new user with secure password
   User.createSecure(newUser.email, newUser.password, function (err, user) {
-    res.redirect('/login');
+    req.login(user);
+    res.redirect('/');
   });
 });
 
@@ -93,7 +94,7 @@ app.get('/login', function (req, res) {
   req.currentUser(function (err, user) {
     // redirect if current user
     if (user) {
-      res.redirect('/profile');
+      res.redirect('/');
     } else {
       res.sendFile(__dirname + '/public/views/login.html');
     }
@@ -109,41 +110,33 @@ app.post('/login', function (req, res) {
   // call authenticate function to check if password user entered is correct
   User.authenticate(userData.email, userData.password, function (err, user) {
     // saves user id to session
-    req.login(user);
-
-    // redirect to user profile
-    res.redirect('/profile');
-  });
-});
-
-// user profile page
-app.get('/profile', function (req, res) {
-  // finds user currently logged in
-  req.currentUser(function (err, user) {
     if (user) {
-      res.sendFile(__dirname + '/public/views/index.html');
-    // redirect if there is no current user
+      req.login(user);
+
+      // redirect to user profile
+      res.redirect('/');      
     } else {
       res.redirect('/login');
     }
   });
 });
 
+
+
 // logout route (destroys session)
 app.get('/logout', function (req, res) {
   req.logout();
-  res.redirect('/login');
+  res.redirect('/');
 });
 
-app.get('/', function (req, res) {
+app.get('/api/me', function (req, res) {
   req.currentUser(function (err, user) {
-    // redirect if current user
-    if (user) {
-      res.sendFile(__dirname + '/public/views/index.html');
-    } else {
-      res.sendFile(__dirname + '/public/views/login.html');
-    }
+    res.json(user);
   });
+})
+
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/public/views/index.html');
 });
 
 // ****Signup Ends
@@ -280,30 +273,40 @@ app.delete('/api/posts/:id', function(req, res) {
 
 
 
-// get all comments for one post
-app.get('/api/posts/:postID/comments', function(req, res){
-  // query the database to find the post indicated by the id
-  db.Post.findOne({_id: req.params.postid}, function(err, post){
-    // send the post's comments as the JSON response
-    res.json(post.comments);
-  });
-});
+// // get all comments for one post
+// app.get('/api/posts/:postID/comments', function(req, res){
+//   // query the database to find the post indicated by the id
+//   db.Post.findOne({_id: req.params.postid}, function(err, post){
+//     // send the post's comments as the JSON response
+//     res.json(post.comments);
+//   });
+// });
 
-// add a new comment to a post
-app.post('/api/posts/:postID/comments', function(req, res){
+// // add a new comment to a post
+// app.post('/api/posts/:postID/comments', function(req, res){
 
-   var newComment = new Comment({
+//    var newComment = new Comment({
+//     text: req.body.text,
+//     author: author._id,
+//     youtubeID: req.body.youtubeID
+
+//   });
+
+
+// create new comment
+app.post('/api/posts/:postId/comments', function (req, res) {
+  // create new comment with form data (`req.body`)
+  var newComment = new db.Comment({
     text: req.body.text,
-    author: author._id,
+    author: req.body.author,
     youtubeID: req.body.youtubeID
-
   });
 
   // set the value of the id
   var targetId = req.params.postId;
 
   // find post in db by id
-  Post.findOne({_id: targetId}, function (err, foundPost) {
+  db.Post.findOne({_id: targetId}, function (err, foundPost) {
     foundPost.comments.push(newComment);
     foundPost.save();
     res.json(newComment);

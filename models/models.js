@@ -10,10 +10,7 @@ var Author = mongoose.model('Author', AuthorSchema);
 
 
 var CommentSchema = new Schema ({
-	author: {
-		type: Schema.Types.ObjectId,
-		ref: 'Author'
-	},
+	author: String,
 	text: String,
 	youtubeID: String
 });

@@ -31,19 +31,30 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         
-        <!-- new post form-->
-        <form class="form-inline" id="new-post">
-          <div class="newformline1">
-            <input type="text" class="form-control" id="new-text" placeholder="What I did?" autofocus>
-         <!--  </div>
-          <div>   -->  
-            <input type="text" class="form-control" id="new-author" placeholder="Who I am">
-            <input type="text" class="form-control" id="youtube-id" placeholder="Show us. Post Youtube URL" autofocus>
-            <input type="submit" class="btn btn-success" value="Post New Competition">
-          </div>
-        </form>
-        <br>
 
+        <!--login tab-->
+        <div id="reg-buttons" style="display:none;">
+          <a href="/login" class="btn btn-default"> login </a>
+          <a href="/signup" class="btn btn-primary"> sign up </a>
+        </div>
+
+        <!-- new post form-->
+        <div id="logged-in" style="display:none;">
+
+          <form class="form-inline" id="new-post">
+            <div class="newformline1">
+              <input type="text" class="form-control" id="new-text" placeholder="What I did?" autofocus>
+           <!--  </div>
+            <div>   -->  
+              <input type="text" class="form-control" id="new-author" placeholder="Who I am">
+              <input type="text" class="form-control" id="youtube-id" placeholder="Show us. Post Youtube URL" autofocus>
+              <input type="submit" class="btn btn-success" value="Post New Competition">
+            </div>
+          </form>
+          <br>
+
+          <button id="log-out">logout</button>
+        </div>
 
 
         <!-- list of posts  -->
@@ -53,7 +64,10 @@
   </div>
 
   <!-- jquery -->
+  
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+
+
 
   <!-- bootstrap js -->
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -68,6 +82,7 @@
   <script type="text/template" id="post-template" >
     <div class="post panel panel-default" id="post-<%= _id %>" data-id="<%= _id %>">
       <div class="panel-body">
+
 
         <span class="my-button-group">
           <!-- delete button -->
@@ -97,37 +112,46 @@
         <p><%= text %></p>
         <p> - <%= author["name"] %></p>
 
-      <div class="container">
-      <div class="row">
-      <div class="col-sm-12">
-              <div class="embed-responsive embed-responsive-16by9" id="youtube">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-4">
+              <div class="embed-responsive embed-responsive-16by9" id="youtube1">
                   <iframe class="embed-responsive-item" src= "https://www.youtube.com/embed/<%= youtubeID %>"></iframe> 
               </div>
+        <!-- post replies(comments) -->
+              <div class="comment-list" id="comments-<%= _id %>">
+       
+              </div>
+
+        <!-- SMASH FORM -->
               <div>
-              <h3>Smash the record!!!</h3>
-              <form class="form-inline" id="new-comment">
-                <div class="newformline1">
-                  <input type="text" class="form-control" id="comment-text" placeholder="What I did?" autofocus>   
-                  <input type="text" class="form-control" id="comment-author" placeholder="Who I am">
-                  <input type="text" class="form-control" id="comment-youtube" placeholder="Show us. Post Youtube URL" autofocus>
-                  <input type="submit" class="btn btn-success" value="Smash the record!">
-                </div>
-              </form>                
+                <h3>Smash the record!!!</h3>
+                  <form class="form-inline" id="new-comment">
+                    <div class="newformline1">
+                      <input type="text" class="form-control" id="comment-text" placeholder="What I did?" autofocus>   
+                      <input type="text" class="form-control" id="comment-author" placeholder="Who I am">
+                      <input type="text" class="form-control" id="comment-youtube" placeholder="Show us. Post Youtube URL" autofocus>
+                      <input type="submit" class="btn btn-success" value="Smash the record!">
+                    </div>
+                  </form>                
               </div>
             
-      </div>
-      </div>
-      </div>
-
-        <div class="comment-list" id="comments-<%= _id %>">
-       
+            </div>
+          </div>
         </div>
       </div>
-      </div>
+    </div>
 
-  </script>
+   </script>
    <script type="text/template" id="comment-template">
-    <p class="text-muted">> <%= text %></p>
+    <p><%= text %></p>
+    <p> - <%= author["name"] %></p>
+      <div class='embed-responsive embed-responsive-16by9' id='youtube2'>
+            <iframe class='embed-responsive-item' src= 'https://www.youtube.com/embed/<%= youtubeID %>'></iframe> 
+      </div>
+    </div>
+  </div>
+</div>
   </script>
 
 

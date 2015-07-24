@@ -30,6 +30,7 @@ UserSchema.statics.createSecure = function (email, password, callback) {
   });
 };
 
+
 // authenticate user (when user logs in)
 UserSchema.statics.authenticate = function (email, password, callback) {
   // find user by email entered at log in
@@ -38,7 +39,7 @@ UserSchema.statics.authenticate = function (email, password, callback) {
     
     // throw error if can't find user
     if (user === null) {
-      throw new Error('Invalid email or password');
+      callback('Invalid email or password', null);
 
     // if found user, check if password is correct
     } else if (user.checkPassword(password)) {
@@ -58,3 +59,4 @@ var User = mongoose.model('User', UserSchema);
 
 // export user model
 module.exports = User;
+
