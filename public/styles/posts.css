@@ -1,3 +1,20 @@
+body {
+  background-image: url("https://i.ytimg.com/vi/C_PrjCVccrw/maxresdefault.jpg");
+}
+
+.title {
+color: red;
+
+}
+
+.well {
+  background: rgba(54, 25, 25, .5);
+}
+
+header {
+ background: rgba(54, 25, 25, .5); 
+}
+
 .edit-pencil {
   cursor: pointer;
   margin-right: 5px;
@@ -37,7 +54,7 @@
 
 
 .container {
-  background: #e3e3e3;
+  background: 54, 25, 25, .5;
   margin-bottom: 20px;
   padding-bottom: 50px;
 }
